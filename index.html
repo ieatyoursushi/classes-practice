@@ -4,21 +4,81 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>replit</title>
+    <title> Post </title>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <input type="search" value="title" id="titleIn">
-    <input type="search" value="paragraph" id="paragraphIn">
-    <input type="color" value="#FFFFFF" id="backgroundIn">
-    <div class="postsPage">
+    <div class="WebPage" id="createTab">
+        <input type="input" placeholder="title" id="titleIn" class="postInput">
+        <input type="input" placeholder="paragraph" id="paragraphIn" class="postInput">
+        <input type="color" value="#FFFFFF" id="backgroundIn" class="postInput">
+        <button id="createPost"> create </button>
+    </div>
+    <div class="WebPage" id="postsPage">
+        <button id="poster"> + </button>
         <article class="postSection">
-        
+
         </article>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
+    <script type="module">
+        import {Post} from './script.js';
+        let webPages = document.querySelectorAll(".WebPage");
+        //makes every other webpage class invisiblle except for selected one 
+        function openPage(pageID) {
+            let f = 0;
+            for (let i = 0; i < webPages.length; i++) {
+                webPages[i].classList.add("hidden");
+                if(webPages[i].id == pageID) {
+                    f = i;
+                }
+            } 
+            webPages[f].classList.remove("hidden");
+        }
+        openPage("postsPage");
+        document.getElementById("poster").addEventListener("click", function () {
+            console.log("clicked");
+            openPage(webPages[0].id);
+            let inputs = document.querySelectorAll(".postInput");
+            for(let i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
+            }
+        })
+        document.getElementById("createPost").addEventListener("click", function() {
+            //prevent posting if there is no value unless specified.
+            let inputs = document.querySelectorAll(".postInput");  
+            let inputBooleans = [];
+            for(let i = 0; i < inputs.length; i++) {
+                if(inputs[i].value != "") {
+                    inputBooleans.push(true)
+                } else {
+                    inputBooleans.push(false);
+                }
+            }
+            function isBlock(inputBooleans) {
+                let f = 0;
+                for(let i = 0; i < inputBooleans.length; i++) {
+                    if(inputBooleans[i] == true) {
+                        f++
+                    }
+                }
+                if(f == inputBooleans.length) {
+                    return true;
+                }
+                return false;
+            }
+            let notEmpty = isBlock(inputBooleans);
+            console.log(notEmpty);
+            if(notEmpty) {
+                openPage(webPages[1].id);  
+                let post = new Post(inputs[0].value, inputs[1].value, inputs[2].value);
+                post.createPost();
  
+            } 
+ 
+        })
+    </script>
 </body>
 
 </html>

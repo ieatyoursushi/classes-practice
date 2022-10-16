@@ -2,6 +2,18 @@ html, body {
   height: 100%;
   width: 100%;
 }
+#postsPage {
+    text-align: center;
+}
+#poster {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+}
+#createPost {
+    width: 50px;
+    height: 20px;
+}
 .postSection {
     display: flex;
     justify-content: center;
@@ -11,5 +23,8 @@ html, body {
 .post {
     outline: 3px lightblue;
     width: 300px;
-    height: 300px;
+    height: auto;
+}
+.hidden {
+    display: none;
 }

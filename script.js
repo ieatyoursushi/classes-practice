@@ -1,7 +1,8 @@
 class Post {
-    constructor(title, paragraph) {
+    constructor(title, paragraph, color) {
         this.title = title;
         this.paragraph = paragraph;
+        this.color = color;
     }
     createTitle() {
         let title = document.createElement("h2");
@@ -18,9 +19,8 @@ class Post {
         newPost.classList.add("post")
         newPost.append(this.createTitle());
         newPost.append(this.createP());
+        newPost.style.color = this.color;
         document.querySelector(".postSection").append(newPost);
     }
 }
-for(let i = 0; i < 50; i++) {
-    new Post("Title", "paragraph paragraph").createPost();
-}
+export {Post};
